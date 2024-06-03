@@ -69,7 +69,7 @@ jobs:
         with:
           commit_message: Save Garmin Session
       - name: 'Send mail'
-        if: ${{env.MAIL_HEAD}} == *"没有要同步的活动内容"*
+        if: ${{env.MAIL_HEAD}} != *"没有要同步的活动内容"*
         uses: dawidd6/action-send-mail@master
         with:
           server_address: smtp.qq.com
