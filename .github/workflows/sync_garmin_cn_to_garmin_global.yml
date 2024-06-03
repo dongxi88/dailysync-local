@@ -69,7 +69,7 @@ jobs:
         with:
           commit_message: Save Garmin Session
       - name: 'Send mail'
-        if: ${{env.MAIL_HEAD}} == *"活动ID"*
+        if: ${{env.MAIL_HEAD}} == *活动ID*
         uses: dawidd6/action-send-mail@master
         with:
           server_address: smtp.qq.com
