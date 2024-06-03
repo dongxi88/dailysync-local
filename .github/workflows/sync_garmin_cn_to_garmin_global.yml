@@ -76,7 +76,9 @@ jobs:
           echo "EOF" >> $GITHUB_ENV
           echo "MAIL_BODY >>>"
           # echo "$MAIL_BODY"
+          echo "${{ env.MAIL_HEAD }}"
           echo "${{ env.MAIL_BODY }}"
+          
           echo "=========github workflow debug END========="
         timeout-minutes: 5
       - uses: stefanzweifel/git-auto-commit-action@v5
