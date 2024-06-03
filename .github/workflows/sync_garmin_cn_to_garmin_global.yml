@@ -80,4 +80,3 @@ jobs:
           body: ${{env.MAIL_BODY}}
           to: 925276588@qq.com
           from: GitHub Actions
-          content_type: text/plain
