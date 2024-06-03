@@ -47,7 +47,7 @@ jobs:
           echo "result<<EOF" >> $GITHUB_ENV
           echo "$result" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-          echo "result=$result" >> $GITHUB_ENV
+          # echo "result=$result" >> $GITHUB_ENV // not work
         timeout-minutes: 5
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
