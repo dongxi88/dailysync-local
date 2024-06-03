@@ -86,6 +86,6 @@ jobs:
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: ${{env.MAIL_HEAD}}-Github
           # html_body: ${{env.MAIL_BODY}}
-          body: env.MAIL_BODY
+          body: ${ env.MAIL_BODY }
           to: 925276588@qq.com
           from: Garmin同步状态
