@@ -78,7 +78,7 @@ jobs:
           server_port: 465
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
-          subject: Garmin同步状态-${{env.HEAD}}-Github
-          html_body: ${{env.BODY}}
+          subject: Garmin同步状态-${{HEAD}}-Github
+          html_body: ${{BODY}}
           to: 925276588@qq.com
           from: GitHub Actions
