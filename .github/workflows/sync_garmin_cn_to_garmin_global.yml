@@ -61,8 +61,9 @@ jobs:
           echo "MAIL_BODY<<EOF" >> $GITHUB_ENV
           echo "$result" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-          echo "${{env.MAIL_BODY}}"
-          # echo "result=$result" >> $GITHUB_ENV // not work
+      - name: test debug
+        run: |
+           echo "${{env.MAIL_BODY}}"
         timeout-minutes: 5
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
