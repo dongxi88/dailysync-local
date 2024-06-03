@@ -108,7 +108,7 @@ export const syncGarminCN2GarminGlobal = async () => {
 
     const latestGlobalActStartTime = globalActs[0]?.startTimeLocal ?? '0';
     const latestCnActStartTime = cnActs[0]?.startTimeLocal ?? '0';
-    console.log(`同步开始`);
+    console.log(`同步从这里开始`);
     console.log(`同步开始时间: ${currentTime}`);
     
     if (latestCnActStartTime === latestGlobalActStartTime) {
