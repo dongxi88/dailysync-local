@@ -69,10 +69,11 @@ jobs:
           fi
           content_body=$(echo "$result" | awk '/同步从这里开始/ {flag=1; next} flag')
           echo "$content_body"
-          echo "MAIL_BODY<<EOF" >> $GITHUB_ENV
-          echo "$content_body" >> $GITHUB_ENV
+          # echo "MAIL_BODY<<EOF" >> $GITHUB_ENV
+          # echo "$content_body" >> $GITHUB_ENV
           # echo "$result" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+          # echo "EOF" >> $GITHUB_ENV
+          echo "MAIL_BODY=$content_body" >> $GITHUB_ENV
           echo "MAIL_BODY ---"
           echo "$MAIL_BODY"
           echo "=========github workflow debug END========="
