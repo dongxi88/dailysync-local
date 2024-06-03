@@ -38,8 +38,28 @@ jobs:
           node-version: '18'
           cache: 'yarn'
       - run: yarn
-      - run: yarn sync_cn
+      # - run: yarn sync_cn
+      - name: Run yarn sync_cn and save the output
+        run: |
+          # 运行yarn sync_cn任务
+          result=$(yarn sync_cn) 
+          echo "$result"
+          echo "result<<EOF" >> $GITHUB_ENV
+          echo "$result" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+          echo "result=$result" >> $GITHUB_ENV
         timeout-minutes: 5
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Save Garmin Session
+      - name: 'Send mail'
+        uses: dawidd6/action-send-mail@master
+        with:
+          server_address: smtp.qq.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: Garmin同步状态-Github
+          html_body: ${{env.result}}
+          to: dongxi8@163.com
+          from: GitHub Actions
