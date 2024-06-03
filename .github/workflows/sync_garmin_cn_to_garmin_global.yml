@@ -50,23 +50,19 @@ jobs:
           echo "$extracted"
           if [[ "$result" == *"没有要同步的活动内容"* ]]; then
             echo "没有要同步的活动内容"
-            echo "head=没有要同步的活动内容" >> $GITHUB_ENV
+            echo "MAIL_HEAD=没有要同步的活动内容" >> $GITHUB_ENV
           else
             echo "有新同步的活动内容"
             echo "$extracted"
-            echo "head<<EOF" >> $GITHUB_ENV
+            echo "MAIL_HEAD<<EOF" >> $GITHUB_ENV
             echo "$extracted" >> $GITHUB_ENV
             echo "EOF" >> $GITHUB_ENV  
           fi
-          echo "body<<EOF" >> $GITHUB_ENV
+          echo "MAIL_BODY<<EOF" >> $GITHUB_ENV
           echo "$result" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
           
           # echo "result=$result" >> $GITHUB_ENV // not work
-        env:
-          HEAD: ${{env.head}}
-          BODY: ${{env.body}}
-          BODY_ORIG: $result
         timeout-minutes: 5
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
@@ -78,7 +74,7 @@ jobs:
           server_port: 465
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
-          subject: Garmin同步状态-${{HEAD}}-Github
-          html_body: ${{BODY}}
+          subject: Garmin同步状态-${{env.MAIL_HEAD}}-Github
+          html_body: ${{env.MAIL_BODY}}
           to: 925276588@qq.com
           from: GitHub Actions
