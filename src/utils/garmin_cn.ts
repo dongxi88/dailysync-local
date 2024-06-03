@@ -25,6 +25,12 @@ const GARMIN_MIGRATE_NUM = process.env.GARMIN_MIGRATE_NUM ?? GARMIN_MIGRATE_NUM_
 const GARMIN_MIGRATE_START = process.env.GARMIN_MIGRATE_START ?? GARMIN_MIGRATE_START_DEFAULT;
 const GARMIN_SYNC_NUM = process.env.GARMIN_SYNC_NUM ?? GARMIN_SYNC_NUM_DEFAULT;
 
+const moment = require('moment-timezone');
+// 获取当前时间并格式化为指定时区时间
+const currentTime = moment().tz('Asia/Shanghai').format('YYYY-MM-DD HH:mm:ss');
+
+
+
 export const getGaminCNClient = async (): Promise<GarminClientType> => {
     if (_.isEmpty(GARMIN_USERNAME) || _.isEmpty(GARMIN_PASSWORD)) {
         const errMsg = '请填写中国区用户名及密码：GARMIN_USERNAME,GARMIN_PASSWORD';
@@ -102,6 +108,9 @@ export const syncGarminCN2GarminGlobal = async () => {
 
     const latestGlobalActStartTime = globalActs[0]?.startTimeLocal ?? '0';
     const latestCnActStartTime = cnActs[0]?.startTimeLocal ?? '0';
+    console.log(`同步开始`);
+    console.log(`同步开始时间: ${currentTime}`);
+    
     if (latestCnActStartTime === latestGlobalActStartTime) {
         console.log(`没有要同步的活动内容, 最近的活动:  【 ${cnActs[0].activityName} 】, 开始于: 【 ${latestCnActStartTime} 】`);
     } else {
