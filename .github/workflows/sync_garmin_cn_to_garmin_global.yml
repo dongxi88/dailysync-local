@@ -46,10 +46,10 @@ jobs:
           echo "$result"
           # 使用正则表达式提取区间内的字符串
           extracted=$(echo "$result" | grep -oP '【\K[^】]+')
-          echo "head=$extracted" >> $GITHUB_ENV
-          # echo "result<<EOF" >> $GITHUB_ENV
-          # echo "$result" >> $GITHUB_ENV
-          # echo "EOF" >> $GITHUB_ENV
+          # echo "head=$extracted" >> $GITHUB_ENV
+          echo "head<<EOF" >> $GITHUB_ENV
+          echo "$extracted" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
           # echo "result=$result" >> $GITHUB_ENV // not work
         timeout-minutes: 5
       - uses: stefanzweifel/git-auto-commit-action@v5
