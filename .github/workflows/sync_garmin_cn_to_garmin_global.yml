@@ -50,7 +50,10 @@ jobs:
           echo "HAS_NEW_ACTIVITY=false" >> $GITHUB_ENV
           # 从环境变量中获取字符串
           IFS='同步从这里开始' read -r -a array <<< "$result"
+          
           echo "=========github workflow debug START========="
+          echo "${array[0]}"
+          echo "${array[1]}"
           # 使用正则表达式提取区间内的字符串
           extracted=$(echo "$result" | grep -oP '【\K[^】]+')
           echo "$extracted"
