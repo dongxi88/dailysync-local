@@ -67,7 +67,7 @@ jobs:
             # echo "::set-output name=HAS_NEW_ACTIVITY::true"
             echo "HAS_NEW_ACTIVITY=true" >> $GITHUB_ENV
           fi
-          echo "$result" | awk '/同步从这里开始/ {flag=1; next} flag' >> $content_body
+          content_body=$(echo "$result" | awk '/同步从这里开始/ {flag=1; next} flag')
           echo "MAIL_BODY<<EOF" >> $GITHUB_ENV
           echo "$content_body" >> $GITHUB_ENV
           # echo "$result" >> $GITHUB_ENV
