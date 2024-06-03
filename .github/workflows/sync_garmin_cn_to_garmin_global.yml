@@ -52,7 +52,7 @@ jobs:
           echo "=========github workflow debug START========="
           # 使用正则表达式提取区间内的字符串
           extracted=$(echo "$result" | grep -oP '【\K[^】]+')
-          echo "$extracted"
+          # echo "$extracted"
           if [[ "$result" == *"没有要同步的活动内容"* ]]; then
             echo "没有要同步的活动内容"
             echo "MAIL_HEAD=没有要同步的活动内容" >> $GITHUB_ENV
