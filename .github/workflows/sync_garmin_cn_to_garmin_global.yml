@@ -44,6 +44,7 @@ jobs:
           # 运行yarn sync_cn任务
           result=$(yarn sync_cn) 
           echo "$result"
+          echo "=========github workflow debug========="
           # 使用正则表达式提取区间内的字符串
           extracted=$(echo "$result" | grep -oP '【\K[^】]+')
           echo "$extracted"
