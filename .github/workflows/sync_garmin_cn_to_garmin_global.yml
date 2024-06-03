@@ -45,7 +45,7 @@ jobs:
           # 运行yarn sync_cn任务
           result=$(yarn sync_cn) 
           echo "$result"
-          echo "=========github workflow debug========="
+          echo "=========github workflow debug START========="
           # 使用正则表达式提取区间内的字符串
           extracted=$(echo "$result" | grep -oP '【\K[^】]+')
           echo "$extracted"
@@ -64,20 +64,15 @@ jobs:
           echo "MAIL_BODY<<EOF" >> $GITHUB_ENV
           echo "$result" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-      - name: test debug
-        run: |
-           echo "${{env.MAIL_BODY}}"
-      - name: if test
-        if: steps.Run_sync_cn.outputs.a == 'true'
-        run: |
-          echo "有活动ID"
-          echo "${{env.MAIL_HEAD}}"
+          echo "MAIL_BODY >>>>>"
+          echo "${{env.MAIL_BODY}}"
+          echo "=========github workflow debug END========="
         timeout-minutes: 5
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Save Garmin Session
       - name: 'Send mail'
-        # if: steps.Run_sync_cn.outputs.a == 'true'
+        if: steps.Run_sync_cn.outputs.a == 'true'
         uses: dawidd6/action-send-mail@master
         with:
           server_address: smtp.qq.com
