@@ -82,7 +82,7 @@ jobs:
         with:
           commit_message: Save Garmin Session
       - name: 'Send mail'
-        if: env.HAS_NEW_ACTIVITY == 'true'
+        # if: env.HAS_NEW_ACTIVITY == 'true'
         uses: dawidd6/action-send-mail@master
         with:
           server_address: smtp.qq.com
