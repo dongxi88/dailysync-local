@@ -75,8 +75,8 @@ jobs:
             echo "HAS_NEW_ACTIVITY=true" >> $GITHUB_ENV
           fi
           echo "MAIL_BODY<<EOF" >> $GITHUB_ENV
-          # echo "$result" >> $GITHUB_ENV
-          echo "${array[1]}" >> $GITHUB_ENV
+          echo "$result" >> $GITHUB_ENV
+          # echo "${array[1]}" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
           echo "MAIL_BODY ---"
           echo "$MAIL_BODY"
