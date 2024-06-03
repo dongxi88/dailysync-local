@@ -64,6 +64,11 @@ jobs:
       - name: test debug
         run: |
            echo "${{env.MAIL_BODY}}"
+      - name: if test
+        if: ${{env.MAIL_HEAD}} == *"活动ID"*
+        run: |
+          echo "有活动ID"
+          echo "${{env.MAIL_HEAD}}"
         timeout-minutes: 5
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
