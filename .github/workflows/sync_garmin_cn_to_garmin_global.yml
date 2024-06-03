@@ -67,22 +67,15 @@ jobs:
             # echo "::set-output name=HAS_NEW_ACTIVITY::true"
             echo "HAS_NEW_ACTIVITY=true" >> $GITHUB_ENV
           fi
-          content_body=$(echo "$result" | awk '/同步从这里开始/ {flag=1; next} flag')
+          # content_body=$(echo "$result" | awk '/同步从这里开始/ {flag=1; next} flag')
+          content_body=$(echo "$result" | sed -n '/同步从这里开始/,$p' | sed '1d')
           echo "$content_body"
-          # 对变量 content_body 进行 base64 编码
-          content_body_base64=$(echo "$content_body" | base64)
-          # echo "MAIL_BODY<<EOF" >> $GITHUB_ENV
-          # echo "$content_body" >> $GITHUB_ENV
+          echo "MAIL_BODY<<EOF" >> $GITHUB_ENV
+          echo "$content_body" >> $GITHUB_ENV
           # echo "$result" >> $GITHUB_ENV
-          # echo "EOF" >> $GITHUB_ENV
-          echo "MAIL_BODY=$content_body_base64" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
           echo "MAIL_BODY ---"
-          # 从环境变量中读取 base64 编码的内容
-          res_base64=${{ env.MAIL_BODY }}
-          # 解码 base64 内容
-          res=$(echo "$res_base64" | base64 --decode)
-          echo "$res"
-          # echo "$MAIL_BODY"
+          echo "$MAIL_BODY"
           echo "=========github workflow debug END========="
         timeout-minutes: 5
       - uses: stefanzweifel/git-auto-commit-action@v5
