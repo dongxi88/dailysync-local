@@ -46,6 +46,7 @@ jobs:
           echo "$result"
           # 使用正则表达式提取区间内的字符串
           extracted=$(echo "$result" | grep -oP '【\K[^】]+')
+          echo "$extracted"
           # echo "head=$extracted" >> $GITHUB_ENV
           echo "head<<EOF" >> $GITHUB_ENV
           echo "$extracted" >> $GITHUB_ENV
