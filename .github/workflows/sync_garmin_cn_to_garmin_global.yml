@@ -55,6 +55,8 @@ jobs:
           IFS=',' read -r -a array <<< "$modified_string"
           
           echo "=========github workflow debug START========="
+          echo "$aaa"
+          echo "----"
           echo "${array[0]}"
           echo "${array[1]}"
           echo "${array}"
