@@ -77,7 +77,7 @@ jobs:
         with:
           commit_message: Save Garmin Session
       - name: 'Send mail'
-        if: env.HAS_NEW_ACTIVITY == 'true'
+        # if: env.HAS_NEW_ACTIVITY == 'true'
         uses: dawidd6/action-send-mail@master
         with:
           server_address: smtp.qq.com
@@ -86,6 +86,6 @@ jobs:
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: ${{env.MAIL_HEAD}}-Github
           # html_body: ${{env.MAIL_BODY}}
-          body: ${{env.MAIL_BODY}}
+          body: env.MAIL_BODY
           to: 925276588@qq.com
           from: Garmin同步状态
