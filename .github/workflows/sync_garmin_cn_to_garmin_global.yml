@@ -53,26 +53,28 @@ jobs:
             echo "没有要同步的活动内容"
             echo "MAIL_HEAD=没有要同步的活动内容" >> $GITHUB_ENV
             echo "::set-output name=HAS_NEW_ACTIVITY::false"
+            echo "HAS_NEW_ACTIVITY=false" >> $GITHUB_ENV
           else
             echo "有新同步的活动内容"
             echo "$extracted"
             echo "MAIL_HEAD<<EOF" >> $GITHUB_ENV
             echo "$extracted" >> $GITHUB_ENV
             echo "EOF" >> $GITHUB_ENV  
-            echo "::set-output name=HAS_NEW_ACTIVITY::true"
+            # echo "::set-output name=HAS_NEW_ACTIVITY::true"
+            echo "HAS_NEW_ACTIVITY=true" >> $GITHUB_ENV
           fi
           echo "MAIL_BODY<<EOF" >> $GITHUB_ENV
           echo "$result" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
           echo "MAIL_BODY >>>>>"
-          echo $env.MAIL_BODY
+          echo ${env.MAIL_BODY}
           echo "=========github workflow debug END========="
         timeout-minutes: 5
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Save Garmin Session
       - name: 'Send mail'
-        if: steps.Run_sync_cn.outputs.a == 'true'
+        if: ${{env.HAS_NEW_ACTIVITY}} == 'true'
         uses: dawidd6/action-send-mail@master
         with:
           server_address: smtp.qq.com
