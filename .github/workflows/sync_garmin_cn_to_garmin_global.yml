@@ -40,6 +40,7 @@ jobs:
       - run: yarn
       # - run: yarn sync_cn
       - name: Run yarn sync_cn and save the output
+        id: Run_sync_cn
         run: |
           # 运行yarn sync_cn任务
           result=$(yarn sync_cn) 
@@ -51,12 +52,14 @@ jobs:
           if [[ "$result" == *"没有要同步的活动内容"* ]]; then
             echo "没有要同步的活动内容"
             echo "MAIL_HEAD=没有要同步的活动内容" >> $GITHUB_ENV
+            echo "::set-output name=HAS_NEW_ACTIVITY::false"
           else
             echo "有新同步的活动内容"
             echo "$extracted"
             echo "MAIL_HEAD<<EOF" >> $GITHUB_ENV
             echo "$extracted" >> $GITHUB_ENV
             echo "EOF" >> $GITHUB_ENV  
+            echo "::set-output name=HAS_NEW_ACTIVITY::true"
           fi
           echo "MAIL_BODY<<EOF" >> $GITHUB_ENV
           echo "$result" >> $GITHUB_ENV
@@ -65,7 +68,7 @@ jobs:
         run: |
            echo "${{env.MAIL_BODY}}"
       - name: if test
-        if: ${{env.MAIL_HEAD}} == *"活动ID"*
+        if: steps.Run_sync_cn.outputs.a == 'true'
         run: |
           echo "有活动ID"
           echo "${{env.MAIL_HEAD}}"
