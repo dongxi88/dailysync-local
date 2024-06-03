@@ -44,9 +44,12 @@ jobs:
           # 运行yarn sync_cn任务
           result=$(yarn sync_cn) 
           echo "$result"
-          echo "result<<EOF" >> $GITHUB_ENV
-          echo "$result" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+          # 使用正则表达式提取区间内的字符串
+          extracted=$(echo "$result" | grep -oP '【\K[^】]+')
+          echo "head=$extracted" >> $GITHUB_ENV
+          # echo "result<<EOF" >> $GITHUB_ENV
+          # echo "$result" >> $GITHUB_ENV
+          # echo "EOF" >> $GITHUB_ENV
           # echo "result=$result" >> $GITHUB_ENV // not work
         timeout-minutes: 5
       - uses: stefanzweifel/git-auto-commit-action@v5
@@ -59,7 +62,7 @@ jobs:
           server_port: 465
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
-          subject: Garmin同步状态-Github
+          subject: Garmin同步状态Github-${{env.head}}
           html_body: ${{env.result}}
           to: dongxi8@163.com
           from: GitHub Actions
