@@ -67,5 +67,5 @@ jobs:
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: Garmin同步状态-${{env.head}}-Github
           html_body: ${{env.body}}
-          to: dongxi8@163.com
+          to: 925276588@qq.com
           from: GitHub Actions
