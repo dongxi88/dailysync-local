@@ -51,12 +51,13 @@ jobs:
           aaa="location: 北京, 海淀}同步从这里开始同步开始时间: 2024-06-03 19:39:25没有要同步的活动内容, 最近的活动:  【 海淀区 公路越野 】, 开始于: 【 2024-06-03 08:22:02 】"
           # 从环境变量中获取字符串
           # 使用 sed 将自定义分隔符替换为逗号
-          modified_string=$(echo "$result" | sed 's/最近的活动/,/g')
-          IFS=',' read -r -a array <<< "$modified_string"
+          modified_string1=$(echo "$result" | sed ':a;N;$!ba;s/\n/\\n/g')
+          modified_string2=$(echo "$modified_string1" | sed 's/xxd/\n/g')
+          IFS=$'\n' read -r -a array <<< "$modified_string2"
           
           echo "=========github workflow debug START========="
-          echo "$aaa"
-          echo "----"
+          # echo "$aaa"
+          # echo "----"
           echo "${array[0]}"
           echo "${array[1]}"
           echo "${array[2]}"
