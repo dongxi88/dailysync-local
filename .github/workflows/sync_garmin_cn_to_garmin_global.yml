@@ -54,6 +54,7 @@ jobs:
           echo "=========github workflow debug START========="
           echo "${array[0]}"
           echo "${array[1]}"
+          echo "${array}"
           # 使用正则表达式提取区间内的字符串
           extracted=$(echo "$result" | grep -oP '【\K[^】]+')
           echo "$extracted"
