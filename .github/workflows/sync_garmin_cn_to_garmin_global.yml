@@ -49,7 +49,9 @@ jobs:
           echo "MAIL_BODY=''" >> $GITHUB_ENV
           echo "HAS_NEW_ACTIVITY=false" >> $GITHUB_ENV
           # 从环境变量中获取字符串
-          IFS='location' read -r -a array <<< "$result"
+          # 使用 sed 将自定义分隔符替换为逗号
+          modified_string=$(echo "$result" | sed 's/同步从这里开始/,/g')
+          IFS=',' read -r -a array <<< "$modified_string"
           
           echo "=========github workflow debug START========="
           echo "${array[0]}"
@@ -84,7 +86,7 @@ jobs:
         with:
           commit_message: Save Garmin Session
       - name: 'Send mail'
-        # if: env.HAS_NEW_ACTIVITY == 'true'
+        if: env.HAS_NEW_ACTIVITY == 'true'
         uses: dawidd6/action-send-mail@master
         with:
           server_address: smtp.qq.com
