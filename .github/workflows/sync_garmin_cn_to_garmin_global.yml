@@ -47,9 +47,11 @@ jobs:
           # 使用正则表达式提取区间内的字符串
           extracted=$(echo "$result" | grep -oP '【\K[^】]+')
           echo "$extracted"
-          # echo "head=$extracted" >> $GITHUB_ENV
           echo "head<<EOF" >> $GITHUB_ENV
           echo "$extracted" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+          echo "body<<EOF" >> $GITHUB_ENV
+          echo "$result" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
           # echo "result=$result" >> $GITHUB_ENV // not work
         timeout-minutes: 5
@@ -63,7 +65,7 @@ jobs:
           server_port: 465
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
-          subject: Garmin同步状态Github-${{env.head}}
-          html_body: ${{env.result}}
+          subject: Garmin同步状态-${{env.head}}-Github
+          html_body: ${{env.body}}
           to: dongxi8@163.com
           from: GitHub Actions
