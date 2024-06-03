@@ -47,12 +47,20 @@ jobs:
           # 使用正则表达式提取区间内的字符串
           extracted=$(echo "$result" | grep -oP '【\K[^】]+')
           echo "$extracted"
-          echo "head<<EOF" >> $GITHUB_ENV
-          echo "$extracted" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+          if [[ "$result" == *"没有要同步的活动内容"* ]]; then
+            echo "没有要同步的活动内容"
+            echo "head=没有要同步的活动内容" >> $GITHUB_ENV
+          else
+            echo "有新同步的活动内容"
+            echo "$extracted"
+            echo "head<<EOF" >> $GITHUB_ENV
+            echo "$extracted" >> $GITHUB_ENV
+            echo "EOF" >> $GITHUB_ENV  
+          fi
           echo "body<<EOF" >> $GITHUB_ENV
           echo "$result" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
+          
           # echo "result=$result" >> $GITHUB_ENV // not work
         timeout-minutes: 5
       - uses: stefanzweifel/git-auto-commit-action@v5
