@@ -77,15 +77,15 @@ jobs:
         with:
           commit_message: Save Garmin Session
       - name: 'Send mail'
-        if: steps.Run_sync_cn.outputs.a == 'true'
+        # if: steps.Run_sync_cn.outputs.a == 'true'
         uses: dawidd6/action-send-mail@master
         with:
           server_address: smtp.qq.com
           server_port: 465
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
-          subject: Garmin同步状态-${{env.MAIL_HEAD}}-Github
+          subject: ${{env.MAIL_HEAD}}-Github
           # html_body: ${{env.MAIL_BODY}}
           body: ${{env.MAIL_BODY}}
           to: 925276588@qq.com
-          from: GitHub Actions
+          from: Garmin同步状态
