@@ -48,9 +48,10 @@ jobs:
           echo "MAIL_HEAD=''" >> $GITHUB_ENV
           echo "MAIL_BODY=''" >> $GITHUB_ENV
           echo "HAS_NEW_ACTIVITY=false" >> $GITHUB_ENV
+          aaa="location: 北京, 海淀}同步从这里开始同步开始时间: 2024-06-03 19:39:25没有要同步的活动内容, 最近的活动:  【 海淀区 公路越野 】, 开始于: 【 2024-06-03 08:22:02 】"
           # 从环境变量中获取字符串
           # 使用 sed 将自定义分隔符替换为逗号
-          modified_string=$(echo "$result" | sed 's/location/,/g')
+          modified_string=$(echo "$aaa" | sed 's/最近的活动/,/g')
           IFS=',' read -r -a array <<< "$modified_string"
           
           echo "=========github workflow debug START========="
