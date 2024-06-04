@@ -5,8 +5,8 @@ on:
   schedule:
     #  每6小时检查一次
     # - cron: "0 */6 * * *"
-    - cron: "*/20 1-2 * * *"
-    - cron: "5,35 13-16 * * *"
+    - cron: "*/19 1-2 * * *"
+    - cron: "*/29 13-16 * * *"
   push:
     branches:
       - main
