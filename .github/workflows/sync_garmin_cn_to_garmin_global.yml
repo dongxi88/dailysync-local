@@ -97,5 +97,5 @@ jobs:
           subject: ${{env.MAIL_HEAD}}-Github
           # html_body: ${{env.MAIL_BODY}}
           body: ${{ env.MAIL_BODY }}
-          to: 925276588@qq.com
+          to: ${{ env.SYNC_NOTIFICATION_EMAIL }}
           from: Garmin同步状态
